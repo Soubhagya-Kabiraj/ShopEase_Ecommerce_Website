@@ -1,0 +1,75 @@
+{% extends 'base.html' %}
+{% block title %}Order {{ order.order_number }} — ShopEase{% endblock %}
+{% block content %}
+<div class="page-header-banner"><div class="container"><h1>Order {{ order.order_number }}</h1></div></div>
+<div class="container py-5">
+    <div class="row g-4">
+        <div class="col-lg-8">
+            <!-- Order Status -->
+            <div class="checkout-card mb-4">
+                <div class="d-flex justify-content-between align-items-center mb-4">
+                    <h5 class="fw-bold mb-0">Order Status</h5>
+                    <span class="status-badge status-{{ order.status|lower }}">{{ order.status }}</span>
+                </div>
+                <div class="d-flex justify-content-between text-center position-relative">
+                    {% with steps="Pending,Shipped,Delivered" %}
+                    {% for step in steps|make_list %}
+                    {% endfor %}
+                    {% endwith %}
+                    <div class="text-center flex-fill">
+                        <div class="rounded-circle mx-auto mb-2 d-flex align-items-center justify-content-center {% if order.status == 'Pending' or order.status == 'Shipped' or order.status == 'Delivered' %}bg-success text-white{% else %}bg-light{% endif %}" style="width:40px;height:40px"><i class="bi bi-clock"></i></div>
+                        <small>Pending</small>
+                    </div>
+                    <div class="text-center flex-fill">
+                        <div class="rounded-circle mx-auto mb-2 d-flex align-items-center justify-content-center {% if order.status == 'Shipped' or order.status == 'Delivered' %}bg-success text-white{% else %}bg-light{% endif %}" style="width:40px;height:40px"><i class="bi bi-truck"></i></div>
+                        <small>Shipped</small>
+                    </div>
+                    <div class="text-center flex-fill">
+                        <div class="rounded-circle mx-auto mb-2 d-flex align-items-center justify-content-center {% if order.status == 'Delivered' %}bg-success text-white{% else %}bg-light{% endif %}" style="width:40px;height:40px"><i class="bi bi-check-lg"></i></div>
+                        <small>Delivered</small>
+                    </div>
+                </div>
+            </div>
+            <!-- Items -->
+            <div class="checkout-card">
+                <h5 class="fw-bold mb-3">Order Items</h5>
+                {% for item in order_items %}
+                <div class="d-flex justify-content-between align-items-center py-3 border-bottom">
+                    <div class="d-flex align-items-center gap-3">
+                        {% if item.product and item.product.image %}
+                        <img src="{{ item.product.image.url }}" class="cart-product-img" alt="">
+                        {% else %}
+                        <div class="cart-product-img bg-light rounded d-flex align-items-center justify-content-center"><i class="bi bi-image text-muted"></i></div>
+                        {% endif %}
+                        <div>
+                            <strong>{{ item.product_name }}</strong>
+                            <small class="d-block text-muted">Qty: {{ item.quantity }} × ₹{{ item.price }}</small>
+                        </div>
+                    </div>
+                    <span class="fw-bold">₹{{ item.subtotal }}</span>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+        <div class="col-lg-4">
+            <div class="cart-summary mb-4">
+                <h5>Payment Summary</h5>
+                <div class="d-flex justify-content-between py-2"><span class="text-muted">Subtotal</span><span>₹{{ order.total_amount }}</span></div>
+                <div class="d-flex justify-content-between py-2"><span class="text-muted">Shipping</span><span class="text-success">FREE</span></div>
+                <div class="d-flex justify-content-between py-2"><span class="text-muted">Payment</span><span>{{ order.get_payment_method_display }}</span></div>
+                <hr>
+                <div class="d-flex justify-content-between"><span class="fw-bold">Total</span><span class="cart-total">₹{{ order.total_amount }}</span></div>
+            </div>
+            <div class="checkout-card">
+                <h5 class="fw-bold mb-3">Shipping Address</h5>
+                <p class="mb-1"><strong>{{ order.full_name }}</strong></p>
+                <p class="mb-1 text-muted">{{ order.address }}</p>
+                <p class="mb-1 text-muted">{{ order.city }}, {{ order.state }} {{ order.zipcode }}</p>
+                <p class="mb-1 text-muted"><i class="bi bi-telephone me-1"></i>{{ order.phone }}</p>
+                <p class="mb-0 text-muted"><i class="bi bi-envelope me-1"></i>{{ order.email }}</p>
+            </div>
+        </div>
+    </div>
+    <div class="mt-4"><a href="{% url 'orders:order_history' %}" class="btn btn-outline-custom"><i class="bi bi-arrow-left me-2"></i>Back to Orders</a></div>
+</div>
+{% endblock %}

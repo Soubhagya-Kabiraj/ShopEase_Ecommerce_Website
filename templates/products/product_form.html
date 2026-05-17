@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+{% block title %}{{ title }} — ShopEase{% endblock %}
+{% block content %}
+<div class="page-header-banner"><div class="container"><h1>{{ title }}</h1></div></div>
+<div class="container py-5">
+    <div class="row justify-content-center"><div class="col-lg-8">
+        <div class="checkout-card">
+            <form method="POST" enctype="multipart/form-data">
+                {% csrf_token %}
+                {% for field in form %}
+                <div class="mb-3">
+                    <label class="form-label fw-600">{{ field.label }}</label>
+                    {{ field }}
+                    {% if field.errors %}<div class="text-danger small mt-1">{{ field.errors.0 }}</div>{% endif %}
+                    {% if field.help_text %}<small class="text-muted">{{ field.help_text }}</small>{% endif %}
+                </div>
+                {% endfor %}
+                <button type="submit" class="btn btn-primary-custom"><i class="bi bi-check-lg me-2"></i>Save Product</button>
+                <a href="{% url 'products:product_list' %}" class="btn btn-outline-custom ms-2">Cancel</a>
+            </form>
+        </div>
+    </div></div>
+</div>
+{% endblock %}

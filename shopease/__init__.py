@@ -1,0 +1,1 @@
+# ShopEase Django Project

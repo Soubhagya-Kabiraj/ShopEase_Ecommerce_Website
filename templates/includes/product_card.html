@@ -1,0 +1,64 @@
+{% load static %}
+<!-- ===== Reusable Product Card ===== -->
+<div class="product-card">
+    <div class="product-img-wrapper">
+        {% if product.image %}
+        <img src="{{ product.image.url }}" alt="{{ product.name }}">
+        {% else %}
+        <img src="https://placehold.co/400x300/f0f2f5/999?text={{ product.name|truncatechars:10 }}" alt="{{ product.name }}">
+        {% endif %}
+
+        {% if product.is_featured %}
+        <span class="product-badge"><i class="bi bi-star-fill me-1"></i>Featured</span>
+        {% endif %}
+
+        {% if user.is_authenticated %}
+        <div class="product-actions">
+            <a href="{% url 'wishlist:add_to_wishlist' product.id %}" class="product-action-btn" title="Add to Wishlist">
+                <i class="bi bi-heart"></i>
+            </a>
+            <a href="{% url 'cart:add_to_cart' product.id %}" class="product-action-btn" title="Add to Cart">
+                <i class="bi bi-cart-plus"></i>
+            </a>
+        </div>
+        {% endif %}
+    </div>
+
+    <div class="product-body">
+        <span class="product-category">{{ product.category.name }}</span>
+        <h6 class="product-name">
+            <a href="{{ product.get_absolute_url }}">{{ product.name|truncatechars:45 }}</a>
+        </h6>
+
+        <!-- Star Rating -->
+        <div class="product-rating">
+            {% with avg=product.average_rating %}
+            {% for i in "12345" %}
+                {% if forloop.counter <= avg %}
+                <i class="bi bi-star-fill star-filled"></i>
+                {% else %}
+                <i class="bi bi-star star-empty"></i>
+                {% endif %}
+            {% endfor %}
+            {% endwith %}
+            <span class="rating-count">({{ product.review_count }})</span>
+        </div>
+
+        <div class="product-footer">
+            <span class="product-price"><span class="currency">₹</span>{{ product.price }}</span>
+            {% if product.is_in_stock %}
+                {% if user.is_authenticated %}
+                <a href="{% url 'cart:add_to_cart' product.id %}" class="btn btn-add-cart btn-sm">
+                    <i class="bi bi-cart-plus me-1"></i>Add
+                </a>
+                {% else %}
+                <a href="{% url 'accounts:login' %}" class="btn btn-add-cart btn-sm">
+                    <i class="bi bi-cart-plus me-1"></i>Add
+                </a>
+                {% endif %}
+            {% else %}
+            <span class="btn btn-add-cart btn-sm out-of-stock">Out of Stock</span>
+            {% endif %}
+        </div>
+    </div>
+</div>

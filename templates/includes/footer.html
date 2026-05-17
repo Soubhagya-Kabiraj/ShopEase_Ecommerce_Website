@@ -1,0 +1,81 @@
+<!-- ===== FOOTER ===== -->
+<footer class="shop-footer mt-auto">
+    <div class="footer-wave">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 100" preserveAspectRatio="none">
+            <path fill="currentColor" d="M0,40 C360,100 720,0 1080,60 C1260,90 1380,50 1440,40 L1440,100 L0,100 Z"></path>
+        </svg>
+    </div>
+    <div class="footer-content">
+        <div class="container">
+            <div class="row g-4">
+                <!-- Brand Column -->
+                <div class="col-lg-4 col-md-6">
+                    <div class="footer-brand mb-3">
+                        <i class="bi bi-bag-heart-fill me-2"></i>
+                        <span>Shop<span class="text-accent">Ease</span></span>
+                    </div>
+                    <p class="footer-desc">Your one-stop destination for premium products at unbeatable prices. Quality guaranteed with fast delivery and excellent customer support.</p>
+                    <div class="footer-socials">
+                        <a href="#" class="social-link" title="Facebook"><i class="bi bi-facebook"></i></a>
+                        <a href="#" class="social-link" title="Twitter"><i class="bi bi-twitter-x"></i></a>
+                        <a href="#" class="social-link" title="Instagram"><i class="bi bi-instagram"></i></a>
+                        <a href="#" class="social-link" title="YouTube"><i class="bi bi-youtube"></i></a>
+                    </div>
+                </div>
+
+                <!-- Quick Links -->
+                <div class="col-lg-2 col-md-6">
+                    <h6 class="footer-heading">Quick Links</h6>
+                    <ul class="footer-links">
+                        <li><a href="{% url 'home' %}">Home</a></li>
+                        <li><a href="{% url 'products:product_list' %}">Products</a></li>
+                        <li><a href="{% url 'products:about' %}">About Us</a></li>
+                        <li><a href="{% url 'products:contact' %}">Contact</a></li>
+                    </ul>
+                </div>
+
+                <!-- Customer Service -->
+                <div class="col-lg-3 col-md-6">
+                    <h6 class="footer-heading">Customer Service</h6>
+                    <ul class="footer-links">
+                        {% if user.is_authenticated %}
+                        <li><a href="{% url 'accounts:profile' %}">My Account</a></li>
+                        <li><a href="{% url 'orders:order_history' %}">Order History</a></li>
+                        <li><a href="{% url 'wishlist:wishlist' %}">Wishlist</a></li>
+                        <li><a href="{% url 'cart:cart_detail' %}">Shopping Cart</a></li>
+                        {% else %}
+                        <li><a href="{% url 'accounts:login' %}">Login</a></li>
+                        <li><a href="{% url 'accounts:register' %}">Register</a></li>
+                        {% endif %}
+                    </ul>
+                </div>
+
+                <!-- Contact Info -->
+                <div class="col-lg-3 col-md-6">
+                    <h6 class="footer-heading">Contact Us</h6>
+                    <ul class="footer-contact">
+                        <li><i class="bi bi-geo-alt me-2"></i> 123 Commerce Street, Mumbai</li>
+                        <li><i class="bi bi-envelope me-2"></i> support@shopease.com</li>
+                        <li><i class="bi bi-telephone me-2"></i> +91 98765 43210</li>
+                        <li><i class="bi bi-clock me-2"></i> Mon–Sat: 9AM – 9PM</li>
+                    </ul>
+                </div>
+            </div>
+
+            <hr class="footer-divider">
+
+            <div class="row align-items-center">
+                <div class="col-md-6 text-center text-md-start">
+                    <p class="footer-copy mb-0">&copy; 2026 ShopEase. All rights reserved.</p>
+                </div>
+                <div class="col-md-6 text-center text-md-end">
+                    <div class="footer-payments">
+                        <span class="me-2">We accept:</span>
+                        <i class="bi bi-cash-coin me-1" title="Cash on Delivery"></i>
+                        <span class="badge bg-success">Cash on Delivery</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>

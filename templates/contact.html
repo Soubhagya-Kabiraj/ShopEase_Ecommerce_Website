@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+{% block title %}Contact Us — ShopEase{% endblock %}
+{% block content %}
+<div class="page-header-banner">
+    <div class="container"><h1>Contact Us</h1><p class="mb-0 opacity-75">We'd love to hear from you</p></div>
+</div>
+<div class="container py-5">
+    <div class="row g-5">
+        <div class="col-lg-5">
+            <h3 class="fw-bold mb-4">Get in Touch</h3>
+            <div class="d-flex align-items-start mb-4">
+                <div class="me-3 p-3 rounded-3" style="background:rgba(233,69,96,0.1)"><i class="bi bi-geo-alt-fill text-accent fs-4"></i></div>
+                <div><h6 class="fw-bold mb-1">Address</h6><p class="text-muted mb-0">123 Commerce Street, Mumbai, India 400001</p></div>
+            </div>
+            <div class="d-flex align-items-start mb-4">
+                <div class="me-3 p-3 rounded-3" style="background:rgba(233,69,96,0.1)"><i class="bi bi-envelope-fill text-accent fs-4"></i></div>
+                <div><h6 class="fw-bold mb-1">Email</h6><p class="text-muted mb-0">support@shopease.com</p></div>
+            </div>
+            <div class="d-flex align-items-start mb-4">
+                <div class="me-3 p-3 rounded-3" style="background:rgba(233,69,96,0.1)"><i class="bi bi-telephone-fill text-accent fs-4"></i></div>
+                <div><h6 class="fw-bold mb-1">Phone</h6><p class="text-muted mb-0">+91 98765 43210</p></div>
+            </div>
+        </div>
+        <div class="col-lg-7">
+            <div class="checkout-card">
+                <h4 class="fw-bold mb-4">Send us a Message</h4>
+                <form method="POST">
+                    {% csrf_token %}
+                    <div class="row g-3">
+                        <div class="col-md-6"><input type="text" class="form-control" placeholder="Your Name" required></div>
+                        <div class="col-md-6"><input type="email" class="form-control" placeholder="Your Email" required></div>
+                        <div class="col-12"><input type="text" class="form-control" placeholder="Subject" required></div>
+                        <div class="col-12"><textarea class="form-control" rows="5" placeholder="Your message..." required></textarea></div>
+                        <div class="col-12"><button type="submit" class="btn btn-primary-custom btn-lg"><i class="bi bi-send me-2"></i>Send Message</button></div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

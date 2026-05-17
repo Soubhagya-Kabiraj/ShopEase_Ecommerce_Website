@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+{% block title %}Checkout — ShopEase{% endblock %}
+{% block content %}
+<div class="page-header-banner"><div class="container"><h1><i class="bi bi-lock me-2"></i>Checkout</h1></div></div>
+<div class="container py-5">
+    <form method="POST">
+        {% csrf_token %}
+        <div class="row g-4">
+            <div class="col-lg-7">
+                <div class="checkout-card">
+                    <h5 class="fw-bold mb-4"><i class="bi bi-truck text-accent me-2"></i>Shipping Address</h5>
+                    <div class="row g-3">
+                        <div class="col-md-6"><label class="form-label fw-600">Full Name</label>{{ form.full_name }}</div>
+                        <div class="col-md-6"><label class="form-label fw-600">Email</label>{{ form.email }}</div>
+                        <div class="col-md-6"><label class="form-label fw-600">Phone</label>{{ form.phone }}</div>
+                        <div class="col-md-6"><label class="form-label fw-600">City</label>{{ form.city }}</div>
+                        <div class="col-12"><label class="form-label fw-600">Address</label>{{ form.address }}</div>
+                        <div class="col-md-6"><label class="form-label fw-600">State</label>{{ form.state }}</div>
+                        <div class="col-md-6"><label class="form-label fw-600">ZIP Code</label>{{ form.zipcode }}</div>
+                    </div>
+                    <hr class="my-4">
+                    <h5 class="fw-bold mb-3"><i class="bi bi-credit-card text-accent me-2"></i>Payment Method</h5>
+                    <div class="p-3 bg-light rounded-3 d-flex align-items-center gap-3">
+                        <input type="radio" checked disabled> 
+                        <div><strong>Cash on Delivery (COD)</strong><br><small class="text-muted">Pay when you receive your order</small></div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-5">
+                <div class="cart-summary">
+                    <h5><i class="bi bi-receipt text-accent me-2"></i>Order Summary</h5>
+                    {% for item in cart_items %}
+                    <div class="d-flex justify-content-between py-2 border-bottom">
+                        <div>
+                            <span class="small">{{ item.product.name|truncatechars:30 }}</span>
+                            <small class="text-muted d-block">Qty: {{ item.quantity }}</small>
+                        </div>
+                        <span class="fw-bold">₹{{ item.subtotal }}</span>
+                    </div>
+                    {% endfor %}
+                    <div class="d-flex justify-content-between py-2 mt-2"><span class="text-muted">Subtotal</span><span>₹{{ cart.total_price }}</span></div>
+                    <div class="d-flex justify-content-between py-2"><span class="text-muted">Shipping</span><span class="text-success fw-bold">FREE</span></div>
+                    <hr>
+                    <div class="d-flex justify-content-between py-2"><span class="fw-bold fs-5">Total</span><span class="cart-total">₹{{ cart.total_price }}</span></div>
+                    <button type="submit" class="btn btn-primary-custom w-100 btn-lg mt-3"><i class="bi bi-check-circle me-2"></i>Place Order</button>
+                    <p class="text-center text-muted small mt-2 mb-0">Payment: Cash on Delivery</p>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+{% endblock %}
