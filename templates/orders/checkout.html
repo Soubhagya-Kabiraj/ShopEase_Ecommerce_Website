@@ -3,7 +3,7 @@
 {% block content %}
 <div class="page-header-banner"><div class="container"><h1><i class="bi bi-lock me-2"></i>Checkout</h1></div></div>
 <div class="container py-5">
-    <form method="POST">
+    <form method="POST" id="checkout-form" action="{% url 'orders:checkout' %}">
         {% csrf_token %}
         <div class="row g-4">
             <div class="col-lg-7">
@@ -20,9 +20,37 @@
                     </div>
                     <hr class="my-4">
                     <h5 class="fw-bold mb-3"><i class="bi bi-credit-card text-accent me-2"></i>Payment Method</h5>
-                    <div class="p-3 bg-light rounded-3 d-flex align-items-center gap-3">
-                        <input type="radio" checked disabled> 
-                        <div><strong>Cash on Delivery (COD)</strong><br><small class="text-muted">Pay when you receive your order</small></div>
+                    <div class="payment-method-toggle">
+                        <label class="payment-option active" id="payment-option-cod">
+                            <input type="radio" name="payment_method" value="COD" checked>
+                            <div class="payment-option-content">
+                                <div class="payment-option-icon">
+                                    <i class="bi bi-cash-stack"></i>
+                                </div>
+                                <div>
+                                    <strong>Cash on Delivery</strong>
+                                    <small class="d-block text-muted">Pay when you receive your order</small>
+                                </div>
+                            </div>
+                            <div class="payment-check"><i class="bi bi-check-circle-fill"></i></div>
+                        </label>
+                        <label class="payment-option" id="payment-option-stripe">
+                            <input type="radio" name="payment_method" value="Stripe">
+                            <div class="payment-option-content">
+                                <div class="payment-option-icon stripe-icon">
+                                    <i class="bi bi-credit-card-2-front"></i>
+                                </div>
+                                <div>
+                                    <strong>Online Payment</strong>
+                                    <small class="d-block text-muted">Secure payment via Stripe</small>
+                                </div>
+                            </div>
+                            <div class="payment-check"><i class="bi bi-check-circle-fill"></i></div>
+                        </label>
+                    </div>
+                    <div class="stripe-secure-note mt-3" id="stripe-secure-note" style="display:none;">
+                        <i class="bi bi-shield-lock-fill me-1"></i>
+                        You will be redirected to Stripe's secure checkout page to complete your payment.
                     </div>
                 </div>
             </div>
@@ -42,11 +70,47 @@
                     <div class="d-flex justify-content-between py-2"><span class="text-muted">Shipping</span><span class="text-success fw-bold">FREE</span></div>
                     <hr>
                     <div class="d-flex justify-content-between py-2"><span class="fw-bold fs-5">Total</span><span class="cart-total">₹{{ cart.total_price }}</span></div>
-                    <button type="submit" class="btn btn-primary-custom w-100 btn-lg mt-3"><i class="bi bi-check-circle me-2"></i>Place Order</button>
-                    <p class="text-center text-muted small mt-2 mb-0">Payment: Cash on Delivery</p>
+                    <button type="submit" class="btn btn-primary-custom w-100 btn-lg mt-3" id="btn-place-order">
+                        <i class="bi bi-check-circle me-2"></i><span id="btn-text">Place Order</span>
+                    </button>
+                    <p class="text-center text-muted small mt-2 mb-0" id="payment-footer-text">Payment: Cash on Delivery</p>
                 </div>
             </div>
         </div>
     </form>
 </div>
+{% endblock %}
+{% block extra_js %}
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const form = document.getElementById('checkout-form');
+    const radios = document.querySelectorAll('input[name="payment_method"]');
+    const options = document.querySelectorAll('.payment-option');
+    const stripeNote = document.getElementById('stripe-secure-note');
+    const btnText = document.getElementById('btn-text');
+    const footerText = document.getElementById('payment-footer-text');
+    const btnIcon = document.querySelector('#btn-place-order i');
+
+    radios.forEach(function(radio) {
+        radio.addEventListener('change', function() {
+            options.forEach(function(opt) { opt.classList.remove('active'); });
+            this.closest('.payment-option').classList.add('active');
+
+            if (this.value === 'Stripe') {
+                form.action = "{% url 'payments:create_checkout_session' %}";
+                stripeNote.style.display = 'block';
+                btnText.textContent = 'Pay Online';
+                footerText.textContent = 'Secure online payment via Stripe';
+                btnIcon.className = 'bi bi-lock me-2';
+            } else {
+                form.action = "{% url 'orders:checkout' %}";
+                stripeNote.style.display = 'none';
+                btnText.textContent = 'Place Order';
+                footerText.textContent = 'Payment: Cash on Delivery';
+                btnIcon.className = 'bi bi-check-circle me-2';
+            }
+        });
+    });
+});
+</script>
 {% endblock %}

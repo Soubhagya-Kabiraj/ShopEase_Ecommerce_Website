@@ -16,10 +16,10 @@ class OrderItemInline(admin.TabularInline):
 
 @admin.register(Order)
 class OrderAdmin(admin.ModelAdmin):
-    list_display = ['order_number', 'user', 'full_name', 'total_amount', 'status', 'payment_method', 'created_at']
+    list_display = ['order_number', 'user', 'full_name', 'total_amount', 'status', 'payment_method', 'is_paid', 'created_at']
     list_filter = ['status', 'payment_method', 'created_at']
     list_editable = ['status']
     search_fields = ['user__username', 'full_name', 'email']
     inlines = [OrderItemInline]
     list_per_page = 25
-    readonly_fields = ['user', 'total_amount', 'created_at', 'updated_at']
+    readonly_fields = ['user', 'total_amount', 'created_at', 'updated_at', 'stripe_session_id']

@@ -1,0 +1,51 @@
+{% extends 'base.html' %}
+{% block title %}Payment Cancelled — ShopEase{% endblock %}
+{% block extra_css %}
+<style>
+    .cancel-container { max-width: 550px; margin: 0 auto; }
+    .cancel-icon-wrapper {
+        width: 100px; height: 100px; border-radius: 50%;
+        background: linear-gradient(135deg, #f39c12, #e67e22);
+        display: flex; align-items: center; justify-content: center;
+        margin: 0 auto 1.5rem; animation: scaleIn 0.5s ease-out;
+    }
+    .cancel-icon-wrapper i { font-size: 3rem; color: #fff; }
+    @keyframes scaleIn {
+        0% { transform: scale(0); opacity: 0; }
+        50% { transform: scale(1.15); }
+        100% { transform: scale(1); opacity: 1; }
+    }
+    .cancel-info {
+        background: #fff3cd; border: 1px solid #ffc107; border-radius: var(--radius);
+        padding: 1.2rem; margin: 1.5rem 0; text-align: left;
+    }
+    .cancel-info i { color: #856404; }
+</style>
+{% endblock %}
+{% block content %}
+<div class="page-header-banner">
+    <div class="container"><h1><i class="bi bi-x-circle me-2"></i>Payment Cancelled</h1></div>
+</div>
+<div class="container py-5">
+    <div class="cancel-container text-center">
+        <div class="cancel-icon-wrapper">
+            <i class="bi bi-x-lg"></i>
+        </div>
+        <h2 class="fw-bold mb-2">Payment Was Cancelled</h2>
+        <p class="text-muted">Don't worry — your cart items are still saved and no charges were made.</p>
+
+        <div class="cancel-info">
+            <p class="mb-0"><i class="bi bi-info-circle me-2"></i>Your payment was not processed. You can try again anytime by going to checkout.</p>
+        </div>
+
+        <div class="mt-4 d-flex justify-content-center gap-3 flex-wrap">
+            <a href="{% url 'orders:checkout' %}" class="btn btn-primary-custom btn-lg">
+                <i class="bi bi-arrow-repeat me-2"></i>Try Again
+            </a>
+            <a href="{% url 'cart:cart_detail' %}" class="btn btn-outline-custom btn-lg">
+                <i class="bi bi-cart me-2"></i>Back to Cart
+            </a>
+        </div>
+    </div>
+</div>
+{% endblock %}

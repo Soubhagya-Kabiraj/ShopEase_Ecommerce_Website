@@ -31,6 +31,7 @@ INSTALLED_APPS = [
     'orders.apps.OrdersConfig',
     'wishlist.apps.WishlistConfig',
     'reviews.apps.ReviewsConfig',
+    'payments.apps.PaymentsConfig',
 ]
 
 MIDDLEWARE = [
@@ -107,3 +108,8 @@ EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
 # ---------- Default primary key field type ----------
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+# ---------- Stripe Configuration ----------
+STRIPE_PUBLISHABLE_KEY = os.environ.get('STRIPE_PUBLISHABLE_KEY', '')
+STRIPE_SECRET_KEY = os.environ.get('STRIPE_SECRET_KEY', '')
+STRIPE_WEBHOOK_SECRET = os.environ.get('STRIPE_WEBHOOK_SECRET', '')  # Set this after configuring webhooks in Stripe Dashboard

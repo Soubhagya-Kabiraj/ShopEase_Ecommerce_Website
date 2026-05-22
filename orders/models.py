@@ -17,6 +17,7 @@ class Order(models.Model):
 
     PAYMENT_CHOICES = [
         ('COD', 'Cash on Delivery'),
+        ('Stripe', 'Stripe (Card/UPI)'),
     ]
 
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='orders')
@@ -33,6 +34,7 @@ class Order(models.Model):
     payment_method = models.CharField(max_length=20, choices=PAYMENT_CHOICES, default='COD')
     status = models.CharField(max_length=20, choices=STATUS_CHOICES, default='Pending')
     is_paid = models.BooleanField(default=False)
+    stripe_session_id = models.CharField(max_length=255, blank=True, null=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
