@@ -252,19 +252,19 @@ http://127.0.0.1:8000/
 
 | Product Detail | Latest Products |
 |-----------------|-----------------|
-| ![Product Detail](screenshots/product-detail.png) | ![Latest Products](screenshots/latest-products.png) |
+| <img width="1427" height="911" alt="Screenshot 2026-05-22 152847" src="https://github.com/user-attachments/assets/c00ca95c-e44e-4327-bb12-eee99a1ba4bc" /> | <img width="1890" height="913" alt="Screenshot 2026-05-22 151820" src="https://github.com/user-attachments/assets/b8189551-1d33-4cca-8039-9e075190e4da" /> |
 
 | Shop Categories | Cart |
 |------------------|------|
-| ![Categories](screenshots/shop-categories.png) | ![Cart](screenshots/cart.png) |
+| <img width="1691" height="916" alt="image" src="https://github.com/user-attachments/assets/da9cb2ce-4bdf-42b7-90f2-0feff5f38dc3" /> | <img width="1882" height="912" alt="Screenshot 2026-05-22 151857" src="https://github.com/user-attachments/assets/64580e1a-92fa-4a74-b5ea-8cdc90d4eee3" /> |
 
 | Wishlist | Checkout |
 |------------|-----------|
-| ![Wishlist](screenshots/wishlist.png) | ![Checkout](screenshots/checkout.png) |
+| <img width="1882" height="913" alt="Screenshot 2026-05-22 151943" src="https://github.com/user-attachments/assets/03ae8ced-3e42-470a-b67a-bfc353721631" /> | <img width="1465" height="910" alt="Screenshot 2026-05-22 153041" src="https://github.com/user-attachments/assets/4891e6ea-3e73-452f-94f1-1078e126041e" /> |
 
 | User Profile |
 |---------------|
-| ![User Profile](screenshots/user-profile.png) |
+| <img width="1719" height="917" alt="Screenshot 2026-05-22 153951" src="https://github.com/user-attachments/assets/fa42b22c-a7bc-4f1e-b320-e867715564a1" /> |
 
 </div>
 
